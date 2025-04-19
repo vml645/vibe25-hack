@@ -1,0 +1,909 @@
+{
+  "possessions": [
+    {
+      "EndTime": "00:07",
+      "FG2A": 0,
+      "FG2M": 0,
+      "FG3A": 1,
+      "FG3M": 0,
+      "GameDate": "2022-04-08",
+      "GameId": "0022101207",
+      "NonShootingFoulsThatResultedInFts": 0,
+      "OffensiveRebounds": 0,
+      "Opponent": "MIA",
+      "Period": 4,
+      "ShootingFoulsDrawn": 0,
+      "StartScoreDifferential": -2,
+      "StartTime": "00:27",
+      "StartType": "Off Timeout",
+      "Turnovers": 0,
+      "PossessionId": 1,
+      "StartTimeSec": 27,
+      "EndTimeSec": 7,
+      "Events": [
+        {
+          "type": "27FT_3PT_JUMP_SHOT_MISS",
+          "player": "Gallinari",
+          "distance": 27,
+          "shot_type": "3PT Jump Shot",
+          "outcome": "MISS"
+        },
+        {
+          "type": "REBOUND",
+          "player": "Lowry",
+          "offensive": 1,
+          "defensive": 4
+        }
+      ],
+      "VideoUrls": [
+        {
+          "description": "MISS Gallinari 27' 3PT Jump Shot",
+          "url": "https://videos.nba.com/nba/pbp/media/2022/04/08/0022101207/583/1b838a35-b208-7e67-75d1-4f1dfc9689c5_960x540.mp4"
+        },
+        {
+          "description": "Lowry REBOUND (Off:1 Def:4)",
+          "url": "https://videos.nba.com/nba/pbp/media/2022/04/08/0022101207/584/61fc1ade-4aad-8059-7030-b7e2485c0514_960x540.mp4"
+        }
+      ]
+    },
+    {
+      "EndTime": "00:45",
+      "FG2A": 0,
+      "FG2M": 0,
+      "FG3A": 1,
+      "FG3M": 0,
+      "GameDate": "2022-04-08",
+      "GameId": "0022101207",
+      "NonShootingFoulsThatResultedInFts": 0,
+      "OffensiveRebounds": 0,
+      "Opponent": "MIA",
+      "Period": 4,
+      "ShootingFoulsDrawn": 0,
+      "StartScoreDifferential": 0,
+      "StartTime": "01:06",
+      "StartType": "Off Short Mid-Range Miss",
+      "Turnovers": 0,
+      "PossessionId": 2,
+      "StartTimeSec": 66,
+      "EndTimeSec": 45,
+      "Events": [
+        {
+          "type": "25FT_3PT_STEP_BACK_JUMP_SHOT_MISS",
+          "player": "Young",
+          "distance": 25,
+          "shot_type": "3PT Step Back Jump Shot",
+          "outcome": "MISS"
+        },
+        {
+          "type": "REBOUND",
+          "player": "Herro",
+          "offensive": 0,
+          "defensive": 5
+        }
+      ],
+      "VideoUrls": [
+        {
+          "description": "MISS Young 25' 3PT Step Back Jump Shot",
+          "url": "https://videos.nba.com/nba/pbp/media/2022/04/08/0022101207/576/b4c71707-2e2c-b4b4-f854-602c024779c3_960x540.mp4"
+        },
+        {
+          "description": "Herro REBOUND (Off:0 Def:5)",
+          "url": "https://videos.nba.com/nba/pbp/media/2022/04/08/0022101207/577/4a8994e7-2b92-c8f1-74f8-8cadf15a990f_960x540.mp4"
+        }
+      ]
+    },
+    {
+      "EndTime": "01:00",
+      "FG2A": 1,
+      "FG2M": 0,
+      "FG3A": 0,
+      "FG3M": 0,
+      "GameDate": "2022-03-20",
+      "GameId": "0022101064",
+      "NonShootingFoulsThatResultedInFts": 0,
+      "OffensiveRebounds": 0,
+      "Opponent": "NOP",
+      "Period": 4,
+      "ShootingFoulsDrawn": 0,
+      "StartScoreDifferential": -2,
+      "StartTime": "01:16",
+      "StartType": "Off Short Mid-Range Make",
+      "Turnovers": 0,
+      "PossessionId": 3,
+      "StartTimeSec": 76,
+      "EndTimeSec": 60,
+      "Events": [
+        {
+          "type": "12FT_PULLUP_JUMP_SHOT_MISS",
+          "player": "Young",
+          "distance": 12,
+          "shot_type": "Pullup Jump Shot",
+          "outcome": "MISS"
+        },
+        {
+          "type": "REBOUND",
+          "player": "McCollum",
+          "offensive": 0,
+          "defensive": 4
+        }
+      ],
+      "VideoUrls": [
+        {
+          "description": "MISS Young 12' Pullup Jump Shot",
+          "url": "https://videos.nba.com/nba/pbp/media/2022/03/20/0022101064/639/21df6247-5e26-2958-5939-c8d0dafaebf7_960x540.mp4"
+        },
+        {
+          "description": "McCollum REBOUND (Off:0 Def:4)",
+          "url": "https://videos.nba.com/nba/pbp/media/2022/03/20/0022101064/640/96b123ba-4cd5-1822-400c-461537eab37a_960x540.mp4"
+        }
+      ]
+    },
+    {
+      "EndTime": "00:00",
+      "FG2A": 0,
+      "FG2M": 0,
+      "FG3A": 2,
+      "FG3M": 0,
+      "GameDate": "2022-03-07",
+      "GameId": "0022100968",
+      "NonShootingFoulsThatResultedInFts": 0,
+      "OffensiveRebounds": 1,
+      "Opponent": "DET",
+      "Period": 5,
+      "ShootingFoulsDrawn": 0,
+      "StartScoreDifferential": -3,
+      "StartTime": "00:14",
+      "StartType": "Off Arc 3 Miss",
+      "Turnovers": 0,
+      "PossessionId": 4,
+      "StartTimeSec": 14,
+      "EndTimeSec": 0,
+      "Events": [
+        {
+          "type": "34FT_3PT_JUMP_SHOT_MISS",
+          "player": "Young",
+          "distance": 34,
+          "shot_type": "3PT Jump Shot",
+          "outcome": "MISS"
+        },
+        {
+          "type": "REBOUND",
+          "player": "Wright",
+          "offensive": 1,
+          "defensive": 4
+        },
+        {
+          "type": "27FT_3PT_JUMP_SHOT_MISS",
+          "player": "Hunter",
+          "distance": 27,
+          "shot_type": "3PT Jump Shot",
+          "outcome": "MISS"
+        },
+        {
+          "type": "REBOUND",
+          "team": "Hawks"
+        }
+      ],
+      "VideoUrls": [
+        {
+          "description": "MISS Young 34' 3PT Jump Shot",
+          "url": "https://videos.nba.com/nba/pbp/media/2022/03/07/0022100968/733/b2dbb215-0484-7538-7141-b8433fc29d5c_960x540.mp4"
+        },
+        {
+          "description": "Wright REBOUND (Off:1 Def:4)",
+          "url": "https://videos.nba.com/nba/pbp/media/2022/03/07/0022100968/734/89a88e5e-7ad1-4f95-34fd-d2d8ef95998d_960x540.mp4"
+        },
+        {
+          "description": "MISS Hunter 27' 3PT Jump Shot",
+          "url": "https://videos.nba.com/nba/pbp/media/2022/03/07/0022100968/735/510d122c-97e5-5ecd-9b42-180774a2bcc6_960x540.mp4"
+        }
+      ]
+    },
+    {
+      "EndTime": "01:13",
+      "FG2A": 1,
+      "FG2M": 0,
+      "FG3A": 1,
+      "FG3M": 0,
+      "GameDate": "2022-03-07",
+      "GameId": "0022100968",
+      "NonShootingFoulsThatResultedInFts": 0,
+      "OffensiveRebounds": 1,
+      "Opponent": "DET",
+      "Period": 5,
+      "ShootingFoulsDrawn": 0,
+      "StartScoreDifferential": -4,
+      "StartTime": "01:33",
+      "StartType": "Off At Rim Block",
+      "Turnovers": 0,
+      "PossessionId": 5,
+      "StartTimeSec": 93,
+      "EndTimeSec": 73,
+      "Events": [
+        {
+          "type": "8FT_FLOATING_JUMP_SHOT_MISS",
+          "player": "Young",
+          "distance": 8,
+          "shot_type": "Floating Jump Shot",
+          "outcome": "MISS"
+        },
+        {
+          "type": "REBOUND",
+          "player": "Hunter",
+          "offensive": 1,
+          "defensive": 1
+        },
+        {
+          "type": "24FT_3PT_JUMP_SHOT_MISS",
+          "player": "Collins",
+          "distance": 24,
+          "shot_type": "3PT Jump Shot",
+          "outcome": "MISS"
+        },
+        {
+          "type": "REBOUND",
+          "team": "PISTONS"
+        }
+      ],
+      "VideoUrls": [
+        {
+          "description": "MISS Young 8' Floating Jump Shot",
+          "url": "https://videos.nba.com/nba/pbp/media/2022/03/07/0022100968/717/04e51549-f9db-0d91-9617-745aa3a06e6c_960x540.mp4"
+        },
+        {
+          "description": "Hunter REBOUND (Off:1 Def:1)",
+          "url": "https://videos.nba.com/nba/pbp/media/2022/03/07/0022100968/718/e13a9dbc-3efd-2a55-5f6a-806a4e62dd37_960x540.mp4"
+        },
+        {
+          "description": "MISS Collins 24' 3PT Jump Shot",
+          "url": "https://videos.nba.com/nba/pbp/media/2022/03/07/0022100968/721/0a849d9b-059d-9cbd-217a-30e76dc429c0_960x540.mp4"
+        }
+      ]
+    },
+    {
+      "EndTime": "00:01",
+      "FG2A": 0,
+      "FG2M": 0,
+      "FG3A": 0,
+      "FG3M": 0,
+      "GameDate": "2022-03-07",
+      "GameId": "0022100968",
+      "NonShootingFoulsThatResultedInFts": 1,
+      "OffensiveRebounds": 0,
+      "Opponent": "DET",
+      "Period": 4,
+      "ShootingFoulsDrawn": 0,
+      "StartScoreDifferential": -1,
+      "StartTime": "00:01",
+      "StartType": "Off Timeout",
+      "Turnovers": 0,
+      "PossessionId": 6,
+      "StartTimeSec": 1,
+      "EndTimeSec": 1,
+      "Events": [
+        {
+          "type": "UNKNOWN",
+          "description": "Bagley III P.FOUL (P1.PN) (M.Ervin)"
+        },
+        {
+          "type": "UNKNOWN",
+          "description": "MISS Collins Free Throw 1 of 2"
+        },
+        {
+          "type": "REBOUND",
+          "team": "Hawks"
+        },
+        {
+          "type": "UNKNOWN",
+          "description": "Collins Free Throw 2 of 2 (17 PTS)"
+        }
+      ],
+      "VideoUrls": []
+    },
+    {
+      "EndTime": "00:02",
+      "FG2A": 1,
+      "FG2M": 0,
+      "FG3A": 0,
+      "FG3M": 0,
+      "GameDate": "2022-03-07",
+      "GameId": "0022100968",
+      "NonShootingFoulsThatResultedInFts": 0,
+      "OffensiveRebounds": 0,
+      "Opponent": "DET",
+      "Period": 4,
+      "ShootingFoulsDrawn": 0,
+      "StartScoreDifferential": 1,
+      "StartTime": "00:27",
+      "StartType": "Off Timeout",
+      "Turnovers": 0,
+      "PossessionId": 7,
+      "StartTimeSec": 27,
+      "EndTimeSec": 2,
+      "Events": [
+        {
+          "type": "16FT_STEP_BACK_JUMP_SHOT_MISS",
+          "player": "Young",
+          "distance": 16,
+          "shot_type": "Step Back Jump Shot",
+          "outcome": "MISS"
+        },
+        {
+          "type": "REBOUND",
+          "player": "Grant",
+          "offensive": 0,
+          "defensive": 4
+        }
+      ],
+      "VideoUrls": [
+        {
+          "description": "MISS Young 16' Step Back Jump Shot",
+          "url": "https://videos.nba.com/nba/pbp/media/2022/03/07/0022100968/622/394f75f6-15df-b0b4-62dc-47bdd1b75c04_960x540.mp4"
+        },
+        {
+          "description": "Grant REBOUND (Off:0 Def:4)",
+          "url": "https://videos.nba.com/nba/pbp/media/2022/03/07/0022100968/623/12f806d4-45ed-fbb4-8d9f-2bc18c45c3f4_960x540.mp4"
+        }
+      ]
+    },
+    {
+      "EndTime": "00:49",
+      "FG2A": 0,
+      "FG2M": 0,
+      "FG3A": 0,
+      "FG3M": 0,
+      "GameDate": "2022-03-07",
+      "GameId": "0022100968",
+      "NonShootingFoulsThatResultedInFts": 0,
+      "OffensiveRebounds": 0,
+      "Opponent": "DET",
+      "Period": 4,
+      "ShootingFoulsDrawn": 1,
+      "StartScoreDifferential": -1,
+      "StartTime": "00:52",
+      "StartType": "Off FT Miss",
+      "Turnovers": 0,
+      "PossessionId": 8,
+      "StartTimeSec": 52,
+      "EndTimeSec": 49,
+      "Events": [
+        {
+          "type": "UNKNOWN",
+          "description": "Cunningham S.FOUL (P5.PN) (M.Ervin)"
+        },
+        {
+          "type": "UNKNOWN",
+          "description": "Hunter Free Throw 1 of 2 (11 PTS)"
+        },
+        {
+          "type": "UNKNOWN",
+          "description": "Hunter Free Throw 2 of 2 (12 PTS)"
+        }
+      ],
+      "VideoUrls": []
+    },
+    {
+      "EndTime": "01:21",
+      "FG2A": 1,
+      "FG2M": 1,
+      "FG3A": 2,
+      "FG3M": 0,
+      "GameDate": "2022-03-07",
+      "GameId": "0022100968",
+      "NonShootingFoulsThatResultedInFts": 0,
+      "OffensiveRebounds": 2,
+      "Opponent": "DET",
+      "Period": 4,
+      "ShootingFoulsDrawn": 1,
+      "StartScoreDifferential": -2,
+      "StartTime": "02:01",
+      "StartType": "Off Timeout",
+      "Turnovers": 0,
+      "PossessionId": 9,
+      "StartTimeSec": 121,
+      "EndTimeSec": 81,
+      "Events": [
+        {
+          "type": "UNKNOWN",
+          "description": "Cunningham P.FOUL (P3.T2) (S.Wright)"
+        },
+        {
+          "type": "25FT_3PT_JUMP_SHOT_MISS",
+          "player": "Bogdanovic",
+          "distance": 25,
+          "shot_type": "3PT Jump Shot",
+          "outcome": "MISS"
+        },
+        {
+          "type": "REBOUND",
+          "player": "Capela",
+          "offensive": 4,
+          "defensive": 7
+        },
+        {
+          "type": "24FT_3PT_JUMP_SHOT_MISS",
+          "player": "Hunter",
+          "distance": 24,
+          "shot_type": "3PT Jump Shot",
+          "outcome": "MISS"
+        },
+        {
+          "type": "REBOUND",
+          "player": "Bogdanovic",
+          "offensive": 1,
+          "defensive": 4
+        },
+        {
+          "type": "UNKNOWN",
+          "description": "Bogdanovic 2' Putback Layup (21 PTS)"
+        },
+        {
+          "type": "UNKNOWN",
+          "description": "Cunningham S.FOUL (P4.PN) (A.Nagy)"
+        },
+        {
+          "type": "UNKNOWN",
+          "description": "Bogdanovic Free Throw 1 of 1 (22 PTS)"
+        }
+      ],
+      "VideoUrls": [
+        {
+          "description": "MISS Bogdanovic 25' 3PT Jump Shot",
+          "url": "https://videos.nba.com/nba/pbp/media/2022/03/07/0022100968/589/500d92b3-02c1-ae9a-8b87-697387889b17_960x540.mp4"
+        },
+        {
+          "description": "Capela REBOUND (Off:4 Def:7)",
+          "url": "https://videos.nba.com/nba/pbp/media/2022/03/07/0022100968/590/255d4c0d-1842-4676-862c-d736715a4005_960x540.mp4"
+        },
+        {
+          "description": "MISS Hunter 24' 3PT Jump Shot",
+          "url": "https://videos.nba.com/nba/pbp/media/2022/03/07/0022100968/591/2471eb03-16dc-e921-efd9-b8461e8e451e_960x540.mp4"
+        },
+        {
+          "description": "Bogdanovic REBOUND (Off:1 Def:4)",
+          "url": "https://videos.nba.com/nba/pbp/media/2022/03/07/0022100968/592/13f74be8-7a14-c6b9-bb8c-080fdb0fb2a5_960x540.mp4"
+        },
+        {
+          "description": "Bogdanovic 2' Putback Layup (21 PTS)",
+          "url": "https://videos.nba.com/nba/pbp/media/2022/03/07/0022100968/593/8dd39f56-9713-bcd5-85e7-29a6966fa1b6_960x540.mp4"
+        }
+      ]
+    },
+    {
+      "EndTime": "00:04",
+      "FG2A": 0,
+      "FG2M": 0,
+      "FG3A": 1,
+      "FG3M": 0,
+      "GameDate": "2022-02-24",
+      "GameId": "0022100891",
+      "NonShootingFoulsThatResultedInFts": 0,
+      "OffensiveRebounds": 0,
+      "Opponent": "CHI",
+      "Period": 4,
+      "ShootingFoulsDrawn": 0,
+      "StartScoreDifferential": -2,
+      "StartTime": "00:15",
+      "StartType": "Off Timeout",
+      "Turnovers": 0,
+      "PossessionId": 10,
+      "StartTimeSec": 15,
+      "EndTimeSec": 4,
+      "Events": [
+        {
+          "type": "26FT_3PT_JUMP_SHOT_MISS",
+          "player": "Bogdanovic",
+          "distance": 26,
+          "shot_type": "3PT Jump Shot",
+          "outcome": "MISS"
+        },
+        {
+          "type": "REBOUND",
+          "player": "Green",
+          "offensive": 0,
+          "defensive": 4
+        }
+      ],
+      "VideoUrls": [
+        {
+          "description": "MISS Bogdanovic 26' 3PT Jump Shot",
+          "url": "https://videos.nba.com/nba/pbp/media/2022/02/24/0022100891/648/6222afb9-7079-7770-a6c7-e168321fc48f_960x540.mp4"
+        },
+        {
+          "description": "Green REBOUND (Off:0 Def:4)",
+          "url": "https://videos.nba.com/nba/pbp/media/2022/02/24/0022100891/649/b89815cd-581d-89a5-ca14-d4e1e90c3c20_960x540.mp4"
+        }
+      ]
+    },
+    {
+      "EndTime": "00:23",
+      "FG2A": 1,
+      "FG2M": 0,
+      "FG3A": 0,
+      "FG3M": 0,
+      "GameDate": "2022-02-24",
+      "GameId": "0022100891",
+      "NonShootingFoulsThatResultedInFts": 0,
+      "OffensiveRebounds": 0,
+      "Opponent": "CHI",
+      "Period": 4,
+      "ShootingFoulsDrawn": 0,
+      "StartScoreDifferential": 1,
+      "StartTime": "00:46",
+      "StartType": "Off Long Mid-Range Make",
+      "Turnovers": 0,
+      "PossessionId": 11,
+      "StartTimeSec": 46,
+      "EndTimeSec": 23,
+      "Events": [
+        {
+          "type": "UNKNOWN",
+          "description": "Dosunmu BLOCK (3 BLK): MISS Young 2' Driving Layup"
+        },
+        {
+          "type": "REBOUND",
+          "player": "Dosunmu",
+          "offensive": 2,
+          "defensive": 4
+        }
+      ],
+      "VideoUrls": [
+        {
+          "description": "Dosunmu BLOCK (3 BLK): MISS Young 2' Driving Layup",
+          "url": "https://videos.nba.com/nba/pbp/media/2022/02/24/0022100891/640/850fa092-e914-07a2-34f3-95c7f2830d8a_960x540.mp4"
+        },
+        {
+          "description": "Dosunmu REBOUND (Off:2 Def:4)",
+          "url": "https://videos.nba.com/nba/pbp/media/2022/02/24/0022100891/642/f14ff58e-480d-4f40-d8a2-27f7c16642ed_960x540.mp4"
+        }
+      ]
+    },
+    {
+      "EndTime": "00:44",
+      "FG2A": 0,
+      "FG2M": 0,
+      "FG3A": 0,
+      "FG3M": 0,
+      "GameDate": "2022-01-14",
+      "GameId": "0022100636",
+      "NonShootingFoulsThatResultedInFts": 0,
+      "OffensiveRebounds": 0,
+      "Opponent": "MIA",
+      "Period": 4,
+      "ShootingFoulsDrawn": 0,
+      "StartScoreDifferential": -2,
+      "StartTime": "00:46",
+      "StartType": "Off Timeout",
+      "Turnovers": 1,
+      "PossessionId": 12,
+      "StartTimeSec": 46,
+      "EndTimeSec": 44,
+      "Events": [
+        {
+          "type": "UNKNOWN",
+          "description": "Martin STEAL (2 STL): Huerter Bad Pass Turnover (P1.T16)"
+        }
+      ],
+      "VideoUrls": [
+        {
+          "description": "Martin STEAL (2 STL): Huerter Bad Pass Turnover (P1.T16)",
+          "url": "https://videos.nba.com/nba/pbp/media/2022/01/14/0022100636/668/c1a888d9-7402-d93e-e165-9d181d51b1ef_960x540.mp4"
+        }
+      ]
+    },
+    {
+      "EndTime": "00:07",
+      "FG2A": 0,
+      "FG2M": 0,
+      "FG3A": 0,
+      "FG3M": 0,
+      "GameDate": "2021-12-31",
+      "GameId": "0022100533",
+      "NonShootingFoulsThatResultedInFts": 1,
+      "OffensiveRebounds": 0,
+      "Opponent": "CLE",
+      "Period": 4,
+      "ShootingFoulsDrawn": 0,
+      "StartScoreDifferential": 1,
+      "StartTime": "00:10",
+      "StartType": "Off Timeout",
+      "Turnovers": 0,
+      "PossessionId": 13,
+      "StartTimeSec": 10,
+      "EndTimeSec": 7,
+      "Events": [
+        {
+          "type": "UNKNOWN",
+          "description": "Okoro Personal Take Foul (P6.PN) (J.Tiven)"
+        },
+        {
+          "type": "UNKNOWN",
+          "description": "Young Free Throw 1 of 2 (34 PTS)"
+        },
+        {
+          "type": "UNKNOWN",
+          "description": "Young Free Throw 2 of 2 (35 PTS)"
+        }
+      ],
+      "VideoUrls": []
+    },
+    {
+      "EndTime": "01:22",
+      "FG2A": 1,
+      "FG2M": 0,
+      "FG3A": 0,
+      "FG3M": 0,
+      "GameDate": "2021-12-05",
+      "GameId": "0022100350",
+      "NonShootingFoulsThatResultedInFts": 0,
+      "OffensiveRebounds": 0,
+      "Opponent": "CHA",
+      "Period": 4,
+      "ShootingFoulsDrawn": 0,
+      "StartScoreDifferential": -4,
+      "StartTime": "01:35",
+      "StartType": "Off Corner 3 Miss",
+      "Turnovers": 0,
+      "PossessionId": 14,
+      "StartTimeSec": 95,
+      "EndTimeSec": 82,
+      "Events": [
+        {
+          "type": "1FT_DRIVING_LAYUP_MISS",
+          "player": "Collins",
+          "distance": 1,
+          "shot_type": "Driving Layup",
+          "outcome": "MISS"
+        },
+        {
+          "type": "REBOUND",
+          "player": "Washington",
+          "offensive": 3,
+          "defensive": 8
+        }
+      ],
+      "VideoUrls": [
+        {
+          "description": "MISS Collins 1' Driving Layup",
+          "url": "https://videos.nba.com/nba/pbp/media/2021/12/05/0022100350/594/9878fc4f-c6f6-bdcb-90e9-ab170cc8f29b_960x540.mp4"
+        },
+        {
+          "description": "Washington REBOUND (Off:3 Def:8)",
+          "url": "https://videos.nba.com/nba/pbp/media/2021/12/05/0022100350/595/be866370-76db-347a-d763-739458b76e4c_960x540.mp4"
+        }
+      ]
+    },
+    {
+      "EndTime": "00:00",
+      "FG2A": 0,
+      "FG2M": 0,
+      "FG3A": 1,
+      "FG3M": 0,
+      "GameDate": "2021-12-03",
+      "GameId": "0022100335",
+      "NonShootingFoulsThatResultedInFts": 0,
+      "OffensiveRebounds": 0,
+      "Opponent": "PHI",
+      "Period": 4,
+      "ShootingFoulsDrawn": 0,
+      "StartScoreDifferential": -2,
+      "StartTime": "00:06",
+      "StartType": "Off Timeout",
+      "Turnovers": 0,
+      "PossessionId": 15,
+      "StartTimeSec": 6,
+      "EndTimeSec": 0,
+      "Events": [
+        {
+          "type": "UNKNOWN",
+          "description": "Thybulle Personal Take Foul (P5.T3) (D.Guthrie)"
+        },
+        {
+          "type": "28FT_3PT_TURNAROUND_JUMP_SHOT_MISS",
+          "player": "Gallinari",
+          "distance": 28,
+          "shot_type": "3PT Turnaround Jump Shot",
+          "outcome": "MISS"
+        },
+        {
+          "type": "REBOUND",
+          "team": "HAWKS"
+        }
+      ],
+      "VideoUrls": [
+        {
+          "description": "MISS Gallinari 28' 3PT Turnaround Jump Shot",
+          "url": "https://videos.nba.com/nba/pbp/media/2021/12/03/0022100335/668/0faa8e9a-d7d4-3a06-0cd8-c5887c63b4ff_960x540.mp4"
+        }
+      ]
+    },
+    {
+      "EndTime": "00:32",
+      "FG2A": 0,
+      "FG2M": 0,
+      "FG3A": 0,
+      "FG3M": 0,
+      "GameDate": "2021-12-03",
+      "GameId": "0022100335",
+      "NonShootingFoulsThatResultedInFts": 0,
+      "OffensiveRebounds": 0,
+      "Opponent": "PHI",
+      "Period": 4,
+      "ShootingFoulsDrawn": 0,
+      "StartScoreDifferential": -2,
+      "StartTime": "00:42",
+      "StartType": "Off Timeout",
+      "Turnovers": 1,
+      "PossessionId": 16,
+      "StartTimeSec": 42,
+      "EndTimeSec": 32,
+      "Events": [
+        {
+          "type": "UNKNOWN",
+          "description": "Collins Bad Pass Turnover (P2.T15): Curry STEAL (1 STL)"
+        }
+      ],
+      "VideoUrls": [
+        {
+          "description": "Collins Bad Pass Turnover (P2.T15): Curry STEAL (1 STL)",
+          "url": "https://videos.nba.com/nba/pbp/media/2021/12/03/0022100335/657/f747ee00-b0fe-715d-59e6-581affeaa3a5_960x540.mp4"
+        }
+      ]
+    },
+    {
+      "EndTime": "00:01",
+      "FG2A": 0,
+      "FG2M": 0,
+      "FG3A": 0,
+      "FG3M": 0,
+      "GameDate": "2021-12-01",
+      "GameId": "0022100319",
+      "NonShootingFoulsThatResultedInFts": 1,
+      "OffensiveRebounds": 0,
+      "Opponent": "IND",
+      "Period": 4,
+      "ShootingFoulsDrawn": 0,
+      "StartScoreDifferential": 1,
+      "StartTime": "00:03",
+      "StartType": "Off At Rim Miss",
+      "Turnovers": 0,
+      "PossessionId": 17,
+      "StartTimeSec": 3,
+      "EndTimeSec": 1,
+      "Events": [
+        {
+          "type": "UNKNOWN",
+          "description": "Sabonis Personal Take Foul (P5.PN) (T.Brothers)"
+        },
+        {
+          "type": "UNKNOWN",
+          "description": "Young Free Throw 1 of 2 (32 PTS)"
+        },
+        {
+          "type": "UNKNOWN",
+          "description": "Young Free Throw 2 of 2 (33 PTS)"
+        }
+      ],
+      "VideoUrls": []
+    },
+    {
+      "EndTime": "00:09",
+      "FG2A": 0,
+      "FG2M": 0,
+      "FG3A": 0,
+      "FG3M": 0,
+      "GameDate": "2021-12-01",
+      "GameId": "0022100319",
+      "NonShootingFoulsThatResultedInFts": 0,
+      "OffensiveRebounds": 0,
+      "Opponent": "IND",
+      "Period": 4,
+      "ShootingFoulsDrawn": 0,
+      "StartScoreDifferential": 1,
+      "StartTime": "00:30",
+      "StartType": "Off Corner 3 Make",
+      "Turnovers": 1,
+      "PossessionId": 18,
+      "StartTimeSec": 30,
+      "EndTimeSec": 9,
+      "Events": [
+        {
+          "type": "UNKNOWN",
+          "description": "Brogdon STEAL (3 STL): Young Lost Ball Turnover (P4.T13)"
+        }
+      ],
+      "VideoUrls": [
+        {
+          "description": "Brogdon STEAL (3 STL): Young Lost Ball Turnover (P4.T13)",
+          "url": "https://videos.nba.com/nba/pbp/media/2021/12/01/0022100319/601/d113fb4c-9fce-3598-6fde-fc203ef1f8bd_960x540.mp4"
+        }
+      ]
+    },
+    {
+      "EndTime": "00:23",
+      "FG2A": 0,
+      "FG2M": 0,
+      "FG3A": 1,
+      "FG3M": 0,
+      "GameDate": "2021-11-06",
+      "GameId": "0022100137",
+      "NonShootingFoulsThatResultedInFts": 0,
+      "OffensiveRebounds": 0,
+      "Opponent": "PHX",
+      "Period": 4,
+      "ShootingFoulsDrawn": 0,
+      "StartScoreDifferential": -1,
+      "StartTime": "00:45",
+      "StartType": "Off Timeout",
+      "Turnovers": 0,
+      "PossessionId": 19,
+      "StartTimeSec": 45,
+      "EndTimeSec": 23,
+      "Events": [
+        {
+          "type": "UNKNOWN",
+          "description": "Bridges P.FOUL (P2.T3) (K.Scott)"
+        },
+        {
+          "type": "28FT_3PT_JUMP_SHOT_MISS",
+          "player": "Young",
+          "distance": 28,
+          "shot_type": "3PT Jump Shot",
+          "outcome": "MISS"
+        },
+        {
+          "type": "REBOUND",
+          "player": "Paul",
+          "offensive": 0,
+          "defensive": 6
+        }
+      ],
+      "VideoUrls": [
+        {
+          "description": "MISS Young 28' 3PT Jump Shot",
+          "url": "https://videos.nba.com/nba/pbp/media/2021/11/06/0022100137/653/8128e804-15bc-3a73-3698-79c139ddee3a_960x540.mp4"
+        },
+        {
+          "description": "Paul REBOUND (Off:0 Def:6)",
+          "url": "https://videos.nba.com/nba/pbp/media/2021/11/06/0022100137/654/45c5c2a2-b0a4-87f0-9439-a734acb8a919_960x540.mp4"
+        }
+      ]
+    },
+    {
+      "EndTime": "00:00",
+      "FG2A": 0,
+      "FG2M": 0,
+      "FG3A": 0,
+      "FG3M": 0,
+      "GameDate": "2021-10-27",
+      "GameId": "0022100059",
+      "NonShootingFoulsThatResultedInFts": 1,
+      "OffensiveRebounds": 0,
+      "Opponent": "NOP",
+      "Period": 4,
+      "ShootingFoulsDrawn": 0,
+      "StartScoreDifferential": 1,
+      "StartTime": "00:01",
+      "StartType": "Off Timeout",
+      "Turnovers": 0,
+      "PossessionId": 20,
+      "StartTimeSec": 1,
+      "EndTimeSec": 0,
+      "Events": [
+        {
+          "type": "UNKNOWN",
+          "description": "Jones Personal Take Foul (P4.PN) (E.Scott)"
+        },
+        {
+          "type": "UNKNOWN",
+          "description": "Young Free Throw 1 of 2 (30 PTS)"
+        },
+        {
+          "type": "UNKNOWN",
+          "description": "Young Free Throw 2 of 2 (31 PTS)"
+        }
+      ],
+      "VideoUrls": []
+    }
+  ]
+}
