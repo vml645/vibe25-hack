@@ -270,7 +270,7 @@ export default function Page() {
         const question = `Simulate a possession with Offense: [${offense.join(', ')}] and Defense: [${defense.join(', ')}]. Ball handler: ${getPlayerById(ballHolder)?.name || ''}.`;
 
         try {
-            const res = await fetch('/py/analyze', {
+            const res = await fetch('http://0.0.0.0/analyze', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ question }),
