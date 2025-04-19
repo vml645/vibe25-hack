@@ -41,6 +41,13 @@ export default function Page() {
     const [scoringPlayer, setScoringPlayer] = useState<string | null>(null);
     const [isSimulating, setIsSimulating] = useState<boolean>(false);
     const [simError, setSimError] = useState<string | null>(null);
+    const [currentEvent, setCurrentEvent] = useState<string | null>(null);
+    const [passFrom, setPassFrom] = useState<string | null>(null);
+    const [passTo, setPassTo] = useState<string | null>(null);
+    const [turnoverType, setTurnoverType] = useState<string | null>(null);
+    const [showEventText, setShowEventText] = useState<boolean>(false);
+    const [missedShot, setMissedShot] = useState<boolean>(false);
+    const [rebounder, setRebounder] = useState<string | null>(null);
 
     const teams: Teams = {
         GSW: {
@@ -263,43 +270,157 @@ export default function Page() {
         setSimError(null);
         setGameState('simulation');
 
-        const offense =
-            possession === 'GSW' ? getLineupNames(teams.GSW) : getLineupNames(teams.Rockets);
-        const defense =
-            possession === 'GSW' ? getLineupNames(teams.Rockets) : getLineupNames(teams.GSW);
+        // Reset event states
+        setCurrentEvent(null);
+        setPassFrom(null);
+        setPassTo(null);
+        setTurnoverType(null);
+        setShowEventText(false);
+        setMissedShot(false);
+        setRebounder(null);
+
+        const offense = possession === 'GSW' ? getLineupNames(teams.GSW) : getLineupNames(teams.Rockets);
+        const defense = possession === 'GSW' ? getLineupNames(teams.Rockets) : getLineupNames(teams.GSW);
         const question = `Simulate a possession with Offense: [${offense.join(', ')}] and Defense: [${defense.join(', ')}]. Ball handler: ${getPlayerById(ballHolder)?.name || ''}.`;
 
         try {
-            const res = await fetch('http://0.0.0.0/analyze', {
+            const res = await fetch('http://localhost:8000/analyze', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ question }),
             });
             if (!res.ok) throw new Error('Simulation failed');
             const data = await res.json();
-            // The 'response' field is a JSON string; parse it:
+
+            // Parse the response
             const events = JSON.parse(data.response).events;
-            // Example: use first event to set scorer and score (customize as needed)
-            const scoring = events.find(
-                (e: any) => e.type === 'SHOT_ATTEMPT' && e.details?.outcome === 'MAKE',
-            );
-            setScoreValue(scoring && scoring.details && scoring.details.distance >= 22 ? 3 : 2);
-            setScoringTeam(possession);
-            setScoringPlayer(
-                scoring ? offense.find((n) => n === scoring.player) || '' : ballHolder,
-            );
-            setShowScore(true);
-            // Optionally: animate through the events array for richer UI
-            setTimeout(() => {
-                setShowScore(false);
-                setGameState('selection');
-                setIsSimulating(false);
-            }, 3000);
+            console.log('Simulation events:', events);
+
+            // Process events sequentially with delays
+            await processEventsSequentially(events, offense);
         } catch (err: any) {
             setSimError(err.message || 'Simulation failed');
             setIsSimulating(false);
             setGameState('selection');
         }
+    };
+
+    // Function to process events with animation
+    const processEventsSequentially = async (events: any[], offense: string[]) => {
+        for (let i = 0; i < events.length; i++) {
+            const event = events[i];
+            setCurrentEvent(event.type);
+
+            // Handle different event types
+            switch (event.type) {
+                case 'PASS':
+                    const fromPlayer = event.player;
+                    const toPlayer = event.details.to;
+                    setPassFrom(fromPlayer);
+                    setPassTo(toPlayer);
+                    setShowEventText(true);
+
+                    // Find player IDs for the players involved
+                    const fromPlayerId = getPlayerIdByName(fromPlayer);
+                    const toPlayerId = getPlayerIdByName(toPlayer);
+
+                    if (fromPlayerId && toPlayerId) {
+                        setBallHolder(toPlayerId);
+                    }
+                    
+                    // Shorter delay for passes
+                    await new Promise((resolve) => setTimeout(resolve, 800));
+                    setShowEventText(false);
+                    break;
+
+                case 'TURNOVER':
+                    setTurnoverType(event.details.subtype);
+                    setShowEventText(true);
+
+                    // If it's an out of bounds turnover, switch possession
+                    if (event.details.subtype.toLowerCase().includes('out of bounds')) {
+                        // Wait a moment before switching possession
+                        await new Promise((resolve) => setTimeout(resolve, 1500));
+                        setPossession(possession === 'GSW' ? 'Rockets' : 'GSW');
+                    }
+                    
+                    // Wait between events
+                    await new Promise((resolve) => setTimeout(resolve, 1500));
+                    setShowEventText(false);
+                    break;
+
+                case 'SHOT_ATTEMPT':
+                    // Show the shot attempt
+                    setCurrentEvent(event.type);
+                    setShowEventText(true);
+                    await new Promise((resolve) => setTimeout(resolve, 800));
+                    
+                    if (event.details.outcome === 'MAKE') {
+                        setScoreValue(event.details.distance >= 22 ? 3 : 2);
+                        setScoringTeam(possession);
+                        setScoringPlayer(offense.find((n) => n === event.player) || '');
+                        setShowScore(true);
+                        
+                        // Wait longer for shots
+                        await new Promise((resolve) => setTimeout(resolve, 2000));
+                        setShowScore(false);
+                    } else {
+                        // For misses, show X symbol
+                        setMissedShot(true);
+                        await new Promise((resolve) => setTimeout(resolve, 1000));
+                        setMissedShot(false);
+                    }
+                    setShowEventText(false);
+                    break;
+                    
+                case 'REBOUND':
+                    // Show rebound animation
+                    setCurrentEvent(event.type);
+                    setRebounder(event.player);
+                    setShowEventText(true);
+                    
+                    // If it's a defensive rebound, switch possession
+                    const isOffensivePlayer = offense.includes(event.player);
+                    if (!isOffensivePlayer) {
+                        await new Promise((resolve) => setTimeout(resolve, 800));
+                        setPossession(possession === 'GSW' ? 'Rockets' : 'GSW');
+                    }
+                    
+                    // Find the rebounder's ID and set them as ball holder
+                    const rebounderID = getPlayerIdByName(event.player);
+                    if (rebounderID) {
+                        setBallHolder(rebounderID);
+                    }
+                    
+                    await new Promise((resolve) => setTimeout(resolve, 1200));
+                    setShowEventText(false);
+                    break;
+                    
+                default:
+                    // For other events like dribbles, screens, etc.
+                    await new Promise((resolve) => setTimeout(resolve, 800));
+                    break;
+            }
+        }
+
+        // End simulation
+        setTimeout(() => {
+            setGameState('selection');
+            setIsSimulating(false);
+        }, 1000);
+    };
+
+    // Helper function to get player ID by name
+    const getPlayerIdByName = (name: string): string | null => {
+        // Check GSW team
+        const gswPlayer = teams.GSW.players.find((p) => p.name === name);
+        if (gswPlayer) return gswPlayer.id;
+
+        // Check Rockets team
+        const rocketsPlayer = teams.Rockets.players.find((p) => p.name === name);
+        if (rocketsPlayer) return rocketsPlayer.id;
+
+        return null;
     };
 
     const handleBallAssignment = (playerId: string) => {
@@ -319,7 +440,7 @@ export default function Page() {
     };
 
     return (
-        <div className="min-h-screen w-full relative overflow-hidden font-['Press_Start_2P',monospace] text-xs">
+        <div className="min-h-screen w-full relative overflow-hidden font-['Press_Start_2P', monospace] text-xs">
             {/* NBA court background image */}
             <div className="absolute inset-0 z-0">
                 <img
@@ -527,7 +648,7 @@ export default function Page() {
 
             {gameState === 'simulation' && (
                 <div className="relative z-10 h-screen flex items-center justify-center">
-                    {/* Confetti effect for scoring team */}
+                    {/* Confetti effect for scoring team - ONLY when showScore is true */}
                     {showScore && (
                         <div className="absolute inset-0 pointer-events-none">
                             {[...Array(50)].map((_, i) => {
@@ -557,6 +678,52 @@ export default function Page() {
                                     ></div>
                                 );
                             })}
+                        </div>
+                    )}
+                    {/* Event text display */}
+                    {showEventText && (
+                        <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-80 text-white p-4 rounded-lg text-xl font-bold z-30">
+                            {currentEvent === 'PASS' && passFrom && passTo && (
+                                <div className="flex items-center">
+                                    <span>{passFrom}</span>
+                                    <span className="mx-2">→</span>
+                                    <span>{passTo}</span>
+                                </div>
+                            )}
+
+                            {currentEvent === 'TURNOVER' && turnoverType && (
+                                <div>
+                                    <span className="text-red-500">TURNOVER</span>
+                                    <span className="ml-2">{turnoverType}</span>
+                                </div>
+                            )}
+                            
+                            {currentEvent === 'SHOT_ATTEMPT' && (
+                                <div>
+                                    <span className="text-yellow-400">SHOT</span>
+                                </div>
+                            )}
+                            
+                            {currentEvent === 'REBOUND' && rebounder && (
+                                <div>
+                                    <span className="text-green-400">REBOUND</span>
+                                    <span className="ml-2">{rebounder}</span>
+                                </div>
+                            )}
+                        </div>
+                    )}
+                    
+                    {/* Add missed shot X symbol */}
+                    {missedShot && (
+                        <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30">
+                            <div className="text-6xl text-red-600 font-bold animate-pulse">✗</div>
+                        </div>
+                    )}
+                    
+                    {/* Add rebound indicator */}
+                    {currentEvent === 'REBOUND' && rebounder && (
+                        <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30">
+                            <div className="text-5xl text-green-400 font-bold animate-bounce">↩</div>
                         </div>
                     )}
                 </div>

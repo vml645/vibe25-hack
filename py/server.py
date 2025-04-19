@@ -4,6 +4,7 @@ from typing import Optional
 import openai
 from dotenv import load_dotenv
 import os
+from fastapi.middleware.cors import CORSMiddleware
 
 # Load environment variables from .env file
 load_dotenv()
@@ -28,6 +29,15 @@ Defense: [Curry, Green, Butler, Moody, Podziemski]"""
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 app = FastAPI(title="NBA Analysis API")
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all methods
+    allow_headers=["*"],  # Allow all headers
+)
 
 class Query(BaseModel):
     question: str
