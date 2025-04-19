@@ -79,83 +79,83 @@ export default function Page() {
     return (
         <div
             className="min-h-screen w-full bg-blue-800 relative overflow-hidden font-['Press_Start_2P',monospace] text-xs"
-            data-oid="e3euere"
+            data-oid="iorpyk:"
         >
             {/* 8-bit court background with pixel art style */}
-            <div className="absolute inset-0 z-0" data-oid="m:7.da0">
+            <div className="absolute inset-0 z-0" data-oid="e9-xv00">
                 {/* Court floor */}
                 <div
                     className="absolute inset-0 bg-blue-700 border-4 border-yellow-400"
-                    data-oid="01g.qqs"
+                    data-oid="v2rxgz-"
                 ></div>
 
                 {/* Center circle */}
                 <div
                     className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 border-4 border-yellow-400 rounded-full"
-                    data-oid=".53pv2y"
+                    data-oid="z:dii7n"
                 ></div>
 
                 {/* Center line */}
                 <div
                     className="absolute top-0 left-1/2 transform -translate-x-1/2 h-full w-4 bg-yellow-400"
-                    data-oid="p39d9jh"
+                    data-oid="dq.j8mf"
                 ></div>
 
                 {/* Three point arcs */}
                 <div
                     className="absolute bottom-8 left-8 w-64 h-32 border-4 border-yellow-400 rounded-tl-full"
-                    data-oid="_-5vl46"
+                    data-oid="swulg_1"
                 ></div>
                 <div
                     className="absolute bottom-8 right-8 w-64 h-32 border-4 border-yellow-400 rounded-tr-full"
-                    data-oid="2cw9vjl"
+                    data-oid="opwzohl"
                 ></div>
 
                 {/* Baskets */}
                 <div
                     className="absolute bottom-4 left-1/2 transform -translate-x-32 w-8 h-8 bg-yellow-400"
-                    data-oid="wiewhrq"
+                    data-oid="t:fije-"
                 ></div>
                 <div
                     className="absolute bottom-4 right-1/2 transform translate-x-32 w-8 h-8 bg-yellow-400"
-                    data-oid="k9jr_a0"
+                    data-oid="u3bjl.3"
                 ></div>
 
                 {/* Pixel art details */}
                 <div
-                    className="absolute inset-0 bg-black opacity-10 bg-[url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAEklEQVQImWNgYGD4z0AEGBiQAFAAazB6YzD6PQAAAABJRU5ErkJggg==')]"
-                    data-oid="eqvcxmn"
+                    className="absolute inset-0 bg-black opacity-10 bg-[url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAEklEQVQImWNgYGD4z0AEGBiQAFAAazB6YzD6PQAAAABJRU5ErkJggg==')] left-0 top-0"
+                    data-oid="1gsciqb"
                 ></div>
             </div>
 
             {gameState === 'selection' && (
-                <div className="relative z-10 p-4" data-oid="1u20-sj">
+                <div className="relative z-10 p-4" data-oid="86w35-e">
                     {/* Team & Roster Overlay */}
                     <div
                         className="mx-auto max-w-4xl bg-gray-900 bg-opacity-80 border-4 border-white p-4 mt-8"
-                        data-oid="1x.o2h0"
+                        data-oid="qi1zslv"
                     >
-                        <div className="grid grid-cols-2 gap-4" data-oid="i0:u.7k">
+                        <div className="grid grid-cols-2 gap-4" data-oid="5selc.8">
                             {/* GSW Team */}
                             <div
                                 className={`${teams.GSW.colors} p-2 border-4 ${teams.GSW.borderColors}`}
-                                data-oid=".jaxhkk"
+                                data-oid="4hs0blf"
                             >
-                                <h2 className="text-center mb-4 text-lg" data-oid="5:ttgza">
+                                <h2 className="text-center mb-4 text-lg" data-oid="hf7xg00">
                                     GSW
                                 </h2>
-                                <div className="space-y-2" data-oid="x7adubp">
+                                <div className="space-y-2" data-oid="r6nld7-">
                                     {teams.GSW.players.map((player) => (
                                         <div
                                             key={player.id}
                                             onClick={() => handleBallAssignment(player.id)}
                                             className={`flex justify-between items-center p-2 border-2 ${teams.GSW.borderColors} cursor-pointer ${ballHolder === player.id ? 'bg-yellow-400 text-blue-600' : ''}`}
-                                            data-oid="9yklmd7"
+                                            data-oid="g75uxsf"
                                         >
-                                            <span data-oid="_pm8g4v">{player.position}</span>
-                                            <span data-oid="r4n8_3n">{player.name}</span>
+                                            <span data-oid="l5dy0me">{player.position}</span>
+                                            <span data-oid="5q:kpsp">{player.name}</span>
                                             {ballHolder === player.id && (
-                                                <span className="ml-2 text-lg" data-oid="1rfq4zj">
+                                                <span className="ml-2 text-lg" data-oid="5v9mnyq">
                                                     🏀
                                                 </span>
                                             )}
@@ -167,23 +167,23 @@ export default function Page() {
                             {/* Rockets Team */}
                             <div
                                 className={`${teams.Rockets.colors} p-2 border-4 ${teams.Rockets.borderColors}`}
-                                data-oid="v9mwl5a"
+                                data-oid="18j89c6"
                             >
-                                <h2 className="text-center mb-4 text-lg" data-oid="nfy.i9h">
+                                <h2 className="text-center mb-4 text-lg" data-oid="kltdkrf">
                                     ROCKETS
                                 </h2>
-                                <div className="space-y-2" data-oid="xvw_-bz">
+                                <div className="space-y-2" data-oid="p4_dg63">
                                     {teams.Rockets.players.map((player) => (
                                         <div
                                             key={player.id}
                                             onClick={() => handleBallAssignment(player.id)}
                                             className={`flex justify-between items-center p-2 border-2 ${teams.Rockets.borderColors} cursor-pointer ${ballHolder === player.id ? 'bg-white text-red-600' : ''}`}
-                                            data-oid="fqs0c2k"
+                                            data-oid="9.5kem7"
                                         >
-                                            <span data-oid="d_cljck">{player.position}</span>
-                                            <span data-oid="netqszy">{player.name}</span>
+                                            <span data-oid="y0b1pl0">{player.position}</span>
+                                            <span data-oid="t:v:-6n">{player.name}</span>
                                             {ballHolder === player.id && (
-                                                <span className="ml-2 text-lg" data-oid=".20q923">
+                                                <span className="ml-2 text-lg" data-oid="r8w0od_">
                                                     🏀
                                                 </span>
                                             )}
@@ -196,23 +196,23 @@ export default function Page() {
                         {/* Possession Selection */}
                         <div
                             className="mt-6 p-4 border-4 border-white bg-gray-800"
-                            data-oid="mi0mki:"
+                            data-oid="t-3kv_a"
                         >
-                            <h3 className="text-white mb-4 text-center" data-oid="n4:pw.y">
+                            <h3 className="text-white mb-4 text-center" data-oid="d-g1pm9">
                                 POSSESSION
                             </h3>
-                            <div className="flex justify-center space-x-8" data-oid="2tc88k3">
+                            <div className="flex justify-center space-x-8" data-oid="tigzh.d">
                                 <button
                                     onClick={() => setPossession('GSW')}
                                     className={`px-4 py-2 border-4 ${possession === 'GSW' ? 'bg-blue-600 text-yellow-400 border-yellow-400' : 'bg-gray-700 text-gray-300 border-gray-500'}`}
-                                    data-oid="b5oexk7"
+                                    data-oid="e00phhu"
                                 >
                                     GSW
                                 </button>
                                 <button
                                     onClick={() => setPossession('Rockets')}
                                     className={`px-4 py-2 border-4 ${possession === 'Rockets' ? 'bg-red-600 text-white border-white' : 'bg-gray-700 text-gray-300 border-gray-500'}`}
-                                    data-oid="5tl09mp"
+                                    data-oid="n5j5lmt"
                                 >
                                     ROCKETS
                                 </button>
@@ -220,12 +220,12 @@ export default function Page() {
                         </div>
 
                         {/* Play Button */}
-                        <div className="mt-8 flex justify-center" data-oid="vw682lb">
+                        <div className="mt-8 flex justify-center" data-oid="8pevik3">
                             <button
                                 onClick={handlePlay}
                                 disabled={!ballHolder}
                                 className={`px-12 py-4 text-2xl border-4 border-white bg-green-600 text-white hover:bg-green-500 transition-colors ${!ballHolder ? 'opacity-50 cursor-not-allowed' : 'animate-pulse'}`}
-                                data-oid="e:.vu3:"
+                                data-oid="pas-ad:"
                             >
                                 PLAY
                             </button>
@@ -237,12 +237,12 @@ export default function Page() {
             {gameState === 'simulation' && (
                 <div
                     className="relative z-10 h-screen flex items-center justify-center"
-                    data-oid="oi068d3"
+                    data-oid="8kkg:wb"
                 >
                     {/* Court with player sprites */}
                     <div
                         className="grid grid-cols-5 gap-4 w-full max-w-4xl mx-auto"
-                        data-oid="l8_i_75"
+                        data-oid=":rbqp4u"
                     >
                         {/* GSW Players */}
                         {teams.GSW.active.map((playerId, index) => {
@@ -253,15 +253,15 @@ export default function Page() {
                                 <div
                                     key={playerId}
                                     className={`relative flex flex-col items-center ${isScorer ? 'animate-bounce' : ''}`}
-                                    data-oid="vm1hnl5"
+                                    data-oid="z:uc445"
                                 >
                                     <div
                                         className={`w-16 h-16 border-4 ${teams.GSW.borderColors} ${teams.GSW.colors} flex items-center justify-center`}
-                                        data-oid="hm6ohwi"
+                                        data-oid="uos8d5b"
                                     >
                                         {player.position}
                                     </div>
-                                    <div className="mt-2 text-white text-center" data-oid="g-o8r9f">
+                                    <div className="mt-2 text-white text-center" data-oid="uz-tyce">
                                         {player.name}
                                     </div>
 
@@ -269,7 +269,7 @@ export default function Page() {
                                     {ballHolder === playerId && (
                                         <div
                                             className="absolute -top-4 -right-2 text-2xl"
-                                            data-oid="l9zntaa"
+                                            data-oid="cf:co1n"
                                         >
                                             🏀
                                         </div>
@@ -279,7 +279,7 @@ export default function Page() {
                                     {isScorer && (
                                         <div
                                             className="absolute -top-8 left-0 right-0 text-center text-2xl text-yellow-400 font-bold animate-ping"
-                                            data-oid="n1ju_sz"
+                                            data-oid="fw9atyc"
                                         >
                                             +{scoreValue}
                                         </div>
@@ -297,15 +297,15 @@ export default function Page() {
                                 <div
                                     key={playerId}
                                     className={`relative flex flex-col items-center ${isScorer ? 'animate-bounce' : ''}`}
-                                    data-oid="k61yufd"
+                                    data-oid="87kxi::"
                                 >
                                     <div
                                         className={`w-16 h-16 border-4 ${teams.Rockets.borderColors} ${teams.Rockets.colors} flex items-center justify-center`}
-                                        data-oid="ubboyms"
+                                        data-oid="gw27sqz"
                                     >
                                         {player.position}
                                     </div>
-                                    <div className="mt-2 text-white text-center" data-oid="_vswc7d">
+                                    <div className="mt-2 text-white text-center" data-oid="bwfqxv2">
                                         {player.name}
                                     </div>
 
@@ -313,7 +313,7 @@ export default function Page() {
                                     {ballHolder === playerId && (
                                         <div
                                             className="absolute -top-4 -right-2 text-2xl"
-                                            data-oid="3fc.4ny"
+                                            data-oid="06nuetf"
                                         >
                                             🏀
                                         </div>
@@ -323,7 +323,7 @@ export default function Page() {
                                     {isScorer && (
                                         <div
                                             className="absolute -top-8 left-0 right-0 text-center text-2xl text-white font-bold animate-ping"
-                                            data-oid="_dajcdz"
+                                            data-oid="bskwnbh"
                                         >
                                             +{scoreValue}
                                         </div>
@@ -335,7 +335,7 @@ export default function Page() {
 
                     {/* Confetti effect for scoring team */}
                     {showScore && (
-                        <div className="absolute inset-0 pointer-events-none" data-oid="6rxjlmd">
+                        <div className="absolute inset-0 pointer-events-none" data-oid="rz.46rh">
                             {[...Array(50)].map((_, i) => {
                                 const size = Math.floor(Math.random() * 8) + 4;
                                 const left = Math.floor(Math.random() * 100);
@@ -360,7 +360,7 @@ export default function Page() {
                                             top: '-20px',
                                             animation: `fall ${animationDuration}s linear ${delay}s`,
                                         }}
-                                        data-oid="jhglnu0"
+                                        data-oid="x65:t6f"
                                     ></div>
                                 );
                             })}
@@ -370,7 +370,7 @@ export default function Page() {
             )}
 
             {/* Global styles for animations */}
-            <style jsx global data-oid="28p71st">{`
+            <style jsx global data-oid="e0utp60">{`
                 @keyframes fall {
                     0% {
                         transform: translateY(-20px);
