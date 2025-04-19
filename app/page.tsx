@@ -2,26 +2,55 @@
 
 import { useState, useEffect } from 'react';
 
-export default function Page() {
-    const [gameState, setGameState] = useState('selection'); // 'selection' or 'simulation'
-    const [possession, setPossession] = useState('GSW'); // 'GSW' or 'Rockets'
-    const [ballHolder, setBallHolder] = useState(null); // Player ID who has the ball
-    const [showScore, setShowScore] = useState(false);
-    const [scoreValue, setScoreValue] = useState(0);
-    const [scoringTeam, setScoringTeam] = useState('');
-    const [scoringPlayer, setScoringPlayer] = useState(null);
+interface Position {
+    left: string;
+    top: string;
+}
 
-    const teams = {
+interface CourtPositions {
+    GSW: Position[];
+    Rockets: Position[];
+}
+
+interface Player {
+    id: string;
+    name: string;
+    position: string;
+}
+
+interface Team {
+    name: string;
+    colors: string;
+    borderColors: string;
+    players: Player[];
+    active: string[];
+}
+
+interface Teams {
+    GSW: Team;
+    Rockets: Team;
+}
+
+export default function Page() {
+    const [gameState, setGameState] = useState<'selection' | 'simulation'>('selection');
+    const [possession, setPossession] = useState<'GSW' | 'Rockets'>('GSW');
+    const [ballHolder, setBallHolder] = useState<string | null>(null);
+    const [showScore, setShowScore] = useState<boolean>(false);
+    const [scoreValue, setScoreValue] = useState<number>(0);
+    const [scoringTeam, setScoringTeam] = useState<string>('');
+    const [scoringPlayer, setScoringPlayer] = useState<string | null>(null);
+
+    const teams: Teams = {
         GSW: {
             name: 'GSW',
             colors: 'bg-blue-600 text-yellow-400',
             borderColors: 'border-yellow-400',
             players: [
                 { id: 'gsw1', name: 'CURRY', position: 'PG' },
-                { id: 'gsw2', name: 'THOMPSON', position: 'SG' },
-                { id: 'gsw3', name: 'GREEN', position: 'PF' },
-                { id: 'gsw4', name: 'WIGGINS', position: 'SF' },
-                { id: 'gsw5', name: 'LOONEY', position: 'C' },
+                { id: 'gsw2', name: 'PODZIEMSKI', position: 'SG' },
+                { id: 'gsw3', name: 'BUTLER', position: 'SF' },
+                { id: 'gsw4', name: 'KUMINGA', position: 'PF' },
+                { id: 'gsw5', name: 'GREEN', position: 'C' },
             ],
 
             active: ['gsw1', 'gsw2', 'gsw3', 'gsw4', 'gsw5'],
@@ -31,15 +60,193 @@ export default function Page() {
             colors: 'bg-red-600 text-white',
             borderColors: 'border-white',
             players: [
-                { id: 'rkt1', name: 'SENGUN', position: 'C' },
-                { id: 'rkt2', name: 'GREEN', position: 'SG' },
-                { id: 'rkt3', name: 'SMITH', position: 'PF' },
-                { id: 'rkt4', name: 'VANVLEET', position: 'PG' },
-                { id: 'rkt5', name: 'BROOKS', position: 'SF' },
+                { id: 'rkt1', name: 'VANVLEET', position: 'PG' },
+                { id: 'rkt2', name: 'JALEN GREEN', position: 'SG' },
+                { id: 'rkt3', name: 'THOMPSON', position: 'SF' },
+                { id: 'rkt4', name: 'BROOKS', position: 'PF' },
+                { id: 'rkt5', name: 'SENGUN', position: 'C' },
             ],
 
             active: ['rkt1', 'rkt2', 'rkt3', 'rkt4', 'rkt5'],
         },
+    };
+
+    // Avatar mapping for Warriors players
+    const warriorsAvatars: { [key: string]: string } = {
+        CURRY: '/images/curry.png',
+        PODZIEMSKI: '/images/podz.png',
+        BUTLER: '/images/butler.png',
+        KUMINGA: '/images/kumbucket.png',
+        GREEN: '/images/green.png',
+    };
+
+    // Avatar mapping for Rockets players
+    const rocketsAvatars: { [key: string]: string } = {
+        VANVLEET: '/images/Vanvleet.png',
+        'JALEN GREEN': '/images/jalengreen.png',
+        THOMPSON: '/images/thompson.png',
+        BROOKS: '/images/brooks.png',
+        SENGUN: '/images/sengun.png',
+    };
+
+    // Assign avatars to players (by last name, then fill remaining)
+    const warriorsPlayerOrder = ['CURRY', 'PODZIEMSKI', 'BUTLER', 'KUMINGA', 'GREEN'];
+    const avatarKeys = Object.keys(warriorsAvatars);
+    const playerAvatars: { [key: string]: string } = {};
+    let usedAvatars = new Set<string>();
+    // First pass: assign by last name
+    warriorsPlayerOrder.forEach((lname: string) => {
+        if (warriorsAvatars[lname]) {
+            playerAvatars[lname] = warriorsAvatars[lname];
+            usedAvatars.add(lname);
+        }
+    });
+    // Second pass: assign unused avatars to remaining players
+    let unusedAvatars = avatarKeys.filter((k) => !usedAvatars.has(k));
+    warriorsPlayerOrder.forEach((lname: string) => {
+        if (!playerAvatars[lname] && unusedAvatars.length > 0) {
+            const nextAvatar = unusedAvatars.shift();
+            if (nextAvatar) {
+                playerAvatars[lname] = warriorsAvatars[nextAvatar];
+            }
+        }
+    });
+
+    const rocketsPlayerOrder = ['VANVLEET', 'JALEN GREEN', 'THOMPSON', 'BROOKS', 'SENGUN'];
+    const rocketsAvatarKeys = Object.keys(rocketsAvatars);
+    const rocketsPlayerAvatars: { [key: string]: string } = {};
+    let rocketsUsedAvatars = new Set<string>();
+    rocketsPlayerOrder.forEach((lname: string) => {
+        if (rocketsAvatars[lname]) {
+            rocketsPlayerAvatars[lname] = rocketsAvatars[lname];
+            rocketsUsedAvatars.add(lname);
+        }
+    });
+    let rocketsUnusedAvatars = rocketsAvatarKeys.filter((k) => !rocketsUsedAvatars.has(k));
+    rocketsPlayerOrder.forEach((lname: string) => {
+        if (!rocketsPlayerAvatars[lname] && rocketsUnusedAvatars.length > 0) {
+            const nextAvatar = rocketsUnusedAvatars.shift();
+            if (nextAvatar) {
+                rocketsPlayerAvatars[lname] = rocketsAvatars[nextAvatar];
+            }
+        }
+    });
+
+    const [courtPositions, setCourtPositions] = useState<CourtPositions>({
+        GSW: [
+            { left: '10%', top: '60%' },
+            { left: '18%', top: '65%' },
+            { left: '26%', top: '70%' },
+            { left: '34%', top: '65%' },
+            { left: '42%', top: '60%' },
+        ],
+
+        Rockets: [
+            { left: '58%', top: '60%' },
+            { left: '66%', top: '65%' },
+            { left: '74%', top: '70%' },
+            { left: '82%', top: '65%' },
+            { left: '90%', top: '60%' },
+        ],
+    });
+    const [isAnimating, setIsAnimating] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (gameState === 'simulation') {
+            setIsAnimating(true);
+
+            // More dynamic randomized positions for both teams
+            const warriorsBasePositions: Position[] = [
+                { left: '10%', top: '60%' },
+                { left: '18%', top: '65%' },
+                { left: '26%', top: '70%' },
+                { left: '34%', top: '65%' },
+                { left: '42%', top: '60%' },
+            ];
+
+            const rocketsBasePositions: Position[] = [
+                { left: '58%', top: '60%' },
+                { left: '66%', top: '65%' },
+                { left: '74%', top: '70%' },
+                { left: '82%', top: '65%' },
+                { left: '90%', top: '60%' },
+            ];
+
+            // Create animation frames
+            let frameCount = 0;
+            const maxFrames = 10;
+            const animationInterval = setInterval(() => {
+                if (frameCount >= maxFrames) {
+                    clearInterval(animationInterval);
+                    return;
+                }
+
+                // Generate random movements for each player
+                const randomizePositions = (basePositions: Position[]): Position[] => {
+                    return basePositions.map((pos) => {
+                        const leftBase = parseInt(pos.left);
+                        const topBase = parseInt(pos.top);
+
+                        // More movement during middle frames, less at start/end
+                        const moveFactor = Math.sin((frameCount / maxFrames) * Math.PI) * 15;
+
+                        return {
+                            left: `${leftBase + (Math.random() * moveFactor - moveFactor / 2)}%`,
+                            top: `${topBase + (Math.random() * moveFactor - moveFactor / 2)}%`,
+                        };
+                    });
+                };
+
+                setCourtPositions({
+                    GSW: randomizePositions(warriorsBasePositions),
+                    Rockets: randomizePositions(rocketsBasePositions),
+                });
+
+                frameCount++;
+            }, 200); // Update positions every 200ms
+
+            // Reset after play ends
+            const timeout = setTimeout(() => {
+                clearInterval(animationInterval);
+                setCourtPositions({
+                    GSW: warriorsBasePositions,
+                    Rockets: rocketsBasePositions,
+                });
+                setIsAnimating(false);
+            }, 3000);
+
+            return () => {
+                clearInterval(animationInterval);
+                clearTimeout(timeout);
+            };
+        } else {
+            // Initial positions when not simulating
+            setCourtPositions({
+                GSW: [
+                    { left: '10%', top: '60%' },
+                    { left: '18%', top: '65%' },
+                    { left: '26%', top: '70%' },
+                    { left: '34%', top: '65%' },
+                    { left: '42%', top: '60%' },
+                ],
+
+                Rockets: [
+                    { left: '58%', top: '60%' },
+                    { left: '66%', top: '65%' },
+                    { left: '74%', top: '70%' },
+                    { left: '82%', top: '65%' },
+                    { left: '90%', top: '60%' },
+                ],
+            });
+            setIsAnimating(false);
+        }
+    }, [gameState]);
+
+    const getPlayerIdx = (teamKey: string, playerId: string): number => {
+        if (teamKey in teams) {
+            return teams[teamKey as keyof Teams].active.indexOf(playerId);
+        }
+        return -1;
     };
 
     const handlePlay = () => {
@@ -63,70 +270,152 @@ export default function Page() {
         }, 1500);
     };
 
-    const handleBallAssignment = (playerId) => {
-        // Only assign ball to active players of the team with possession
+    const handleBallAssignment = (playerId: string) => {
+        // Determine the team of the clicked player
         const playerTeam = playerId.startsWith('gsw') ? 'GSW' : 'Rockets';
-        if (playerTeam === possession && teams[playerTeam].active.includes(playerId)) {
-            setBallHolder(playerId);
+        // Switch possession if necessary
+        if (playerTeam !== possession) {
+            setPossession(playerTeam as 'GSW' | 'Rockets');
         }
+        // Assign ball to the clicked player
+        setBallHolder(playerId);
     };
 
-    const getPlayerById = (playerId) => {
+    const getPlayerById = (playerId: string): Player | undefined => {
         const team = playerId.startsWith('gsw') ? teams.GSW : teams.Rockets;
         return team.players.find((player) => player.id === playerId);
     };
 
     return (
         <div
-            className="min-h-screen w-full bg-blue-800 relative overflow-hidden font-['Press_Start_2P',monospace] text-xs"
+            className="min-h-screen w-full relative overflow-hidden font-['Press_Start_2P',monospace] text-xs"
             data-oid="iorpyk:"
         >
-            {/* 8-bit court background with pixel art style */}
+            {/* NBA court background image */}
             <div className="absolute inset-0 z-0" data-oid="e9-xv00">
-                {/* Court floor */}
-                <div
-                    className="absolute inset-0 bg-blue-700 border-4 border-yellow-400"
-                    data-oid="v2rxgz-"
-                ></div>
-
-                {/* Center circle */}
-                <div
-                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 border-4 border-yellow-400 rounded-full"
-                    data-oid="z:dii7n"
-                ></div>
-
-                {/* Center line */}
-                <div
-                    className="absolute top-0 left-1/2 transform -translate-x-1/2 h-full w-4 bg-yellow-400"
-                    data-oid="dq.j8mf"
-                ></div>
-
-                {/* Three point arcs */}
-                <div
-                    className="absolute bottom-8 left-8 w-64 h-32 border-4 border-yellow-400 rounded-tl-full"
-                    data-oid="swulg_1"
-                ></div>
-                <div
-                    className="absolute bottom-8 right-8 w-64 h-32 border-4 border-yellow-400 rounded-tr-full"
-                    data-oid="opwzohl"
-                ></div>
-
-                {/* Baskets */}
-                <div
-                    className="absolute bottom-4 left-1/2 transform -translate-x-32 w-8 h-8 bg-yellow-400"
-                    data-oid="t:fije-"
-                ></div>
-                <div
-                    className="absolute bottom-4 right-1/2 transform translate-x-32 w-8 h-8 bg-yellow-400"
-                    data-oid="u3bjl.3"
-                ></div>
-
-                {/* Pixel art details */}
-                <div
-                    className="absolute inset-0 bg-black opacity-10 bg-[url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAEklEQVQImWNgYGD4z0AEGBiQAFAAazB6YzD6PQAAAABJRU5ErkJggg==')] left-0 top-0"
-                    data-oid="1gsciqb"
-                ></div>
+                <img
+                    src="/images/bg.png"
+                    alt="NBA Court"
+                    className="absolute inset-0 w-full h-full object-cover"
+                    data-oid="79v.4vz"
+                />
             </div>
+
+            {/* Warriors animated avatars on bottom left */}
+            {teams.GSW.active.map((pid, i) => {
+                const player = teams.GSW.players.find((p) => p.id === pid);
+                if (!player) return null;
+                const pos = courtPositions.GSW[i] || { left: '10%', top: '60%' };
+                const isScorer = scoringPlayer === pid && showScore;
+                const isHolder = ballHolder === pid;
+
+                return (
+                    <div
+                        key={pid}
+                        style={{
+                            position: 'absolute',
+                            left: pos.left,
+                            top: pos.top,
+                            transition: isAnimating ? 'all 0.2s ease-out' : 'all 0.5s',
+                            zIndex: isScorer ? 30 : 10,
+                            transform: isScorer ? 'scale(1.5)' : 'scale(1)',
+                        }}
+                        className={`flex flex-col items-center ${isScorer ? 'shadow-2xl' : ''} ${isHolder ? 'ring-4 ring-yellow-400' : ''}`}
+                        data-oid="nm4.ed4"
+                    >
+                        {playerAvatars[player.name] && (
+                            <img
+                                src={playerAvatars[player.name]}
+                                alt={player.name + ' avatar'}
+                                className="w-14 h-14 rounded-full border-4 border-blue-600 bg-white"
+                                data-oid="ujlq:.z"
+                            />
+                        )}
+                        <div
+                            className="bg-blue-600 text-yellow-400 px-2 py-1 mt-1 rounded text-xs font-bold shadow"
+                            data-oid="u0b-yzm"
+                        >
+                            {player.position}
+                            <br data-oid="l7apzsa" />
+                            {player.name}
+                        </div>
+                        {/* Point indicator */}
+                        {isScorer && (
+                            <div
+                                className="absolute -top-6 left-0 right-0 text-center text-2xl text-yellow-400 font-bold animate-bounce"
+                                data-oid="06ulo3v"
+                            >
+                                +{scoreValue}
+                            </div>
+                        )}
+                    </div>
+                );
+            })}
+
+            {/* Center point marker */}
+            <div
+                className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white border-4 border-black z-20"
+                style={{ opacity: isAnimating ? 1 : 0 }}
+                data-oid="0r7vc1g"
+            >
+                <div
+                    className="w-full h-full flex items-center justify-center text-black font-bold"
+                    data-oid="yhxd_hb"
+                >
+                    C
+                </div>
+            </div>
+
+            {/* Rockets animated avatars on bottom right */}
+            {teams.Rockets.active.map((pid, i) => {
+                const player = teams.Rockets.players.find((p) => p.id === pid);
+                if (!player) return null;
+                const pos = courtPositions.Rockets[i] || { left: '90%', top: '60%' };
+                const isScorer = scoringPlayer === pid && showScore;
+                const isHolder = ballHolder === pid;
+
+                return (
+                    <div
+                        key={pid}
+                        style={{
+                            position: 'absolute',
+                            left: pos.left,
+                            top: pos.top,
+                            transition: isAnimating ? 'all 0.2s ease-out' : 'all 0.5s',
+                            zIndex: isScorer ? 30 : 10,
+                            transform: isScorer ? 'scale(1.5)' : 'scale(1)',
+                        }}
+                        className={`flex flex-col items-center ${isScorer ? 'shadow-2xl' : ''} ${isHolder ? 'ring-4 ring-yellow-400' : ''}`}
+                        data-oid="cbwy-si"
+                    >
+                        {rocketsPlayerAvatars[player.name] && (
+                            <img
+                                src={rocketsPlayerAvatars[player.name]}
+                                alt={player.name + ' avatar'}
+                                className="w-14 h-14 rounded-full border-4 border-red-600 bg-white"
+                                data-oid="lbfexe3"
+                            />
+                        )}
+                        <div
+                            className="bg-red-600 text-white px-2 py-1 mt-1 rounded text-xs font-bold shadow"
+                            data-oid="de6cx3n"
+                        >
+                            {player.position}
+                            <br data-oid="m9:sqzn" />
+                            {player.name}
+                        </div>
+                        {/* Point indicator */}
+                        {isScorer && (
+                            <div
+                                className="absolute -top-6 left-0 right-0 text-center text-2xl text-white font-bold animate-bounce"
+                                data-oid="xmd5rz6"
+                            >
+                                +{scoreValue}
+                            </div>
+                        )}
+                    </div>
+                );
+            })}
 
             {gameState === 'selection' && (
                 <div className="relative z-10 p-4" data-oid="86w35-e">
@@ -154,6 +443,15 @@ export default function Page() {
                                         >
                                             <span data-oid="l5dy0me">{player.position}</span>
                                             <span data-oid="5q:kpsp">{player.name}</span>
+                                            {/* Avatar image for this player */}
+                                            {playerAvatars[player.name] && (
+                                                <img
+                                                    src={playerAvatars[player.name]}
+                                                    alt={player.name + ' avatar'}
+                                                    className="w-8 h-8 rounded-full border-2 border-blue-600 bg-white"
+                                                    data-oid="6uj90-m"
+                                                />
+                                            )}
                                             {ballHolder === player.id && (
                                                 <span className="ml-2 text-lg" data-oid="5v9mnyq">
                                                     🏀
@@ -182,6 +480,15 @@ export default function Page() {
                                         >
                                             <span data-oid="y0b1pl0">{player.position}</span>
                                             <span data-oid="t:v:-6n">{player.name}</span>
+                                            {/* Avatar image for this player */}
+                                            {rocketsPlayerAvatars[player.name] && (
+                                                <img
+                                                    src={rocketsPlayerAvatars[player.name]}
+                                                    alt={player.name + ' avatar'}
+                                                    className="w-8 h-8 rounded-full border-2 border-red-600 bg-white"
+                                                    data-oid="89x0f1h"
+                                                />
+                                            )}
                                             {ballHolder === player.id && (
                                                 <span className="ml-2 text-lg" data-oid="r8w0od_">
                                                     🏀
@@ -239,100 +546,6 @@ export default function Page() {
                     className="relative z-10 h-screen flex items-center justify-center"
                     data-oid="8kkg:wb"
                 >
-                    {/* Court with player sprites */}
-                    <div
-                        className="grid grid-cols-5 gap-4 w-full max-w-4xl mx-auto"
-                        data-oid=":rbqp4u"
-                    >
-                        {/* GSW Players */}
-                        {teams.GSW.active.map((playerId, index) => {
-                            const player = getPlayerById(playerId);
-                            const isScorer = showScore && scoringPlayer === playerId;
-
-                            return (
-                                <div
-                                    key={playerId}
-                                    className={`relative flex flex-col items-center ${isScorer ? 'animate-bounce' : ''}`}
-                                    data-oid="z:uc445"
-                                >
-                                    <div
-                                        className={`w-16 h-16 border-4 ${teams.GSW.borderColors} ${teams.GSW.colors} flex items-center justify-center`}
-                                        data-oid="uos8d5b"
-                                    >
-                                        {player.position}
-                                    </div>
-                                    <div className="mt-2 text-white text-center" data-oid="uz-tyce">
-                                        {player.name}
-                                    </div>
-
-                                    {/* Ball indicator */}
-                                    {ballHolder === playerId && (
-                                        <div
-                                            className="absolute -top-4 -right-2 text-2xl"
-                                            data-oid="cf:co1n"
-                                        >
-                                            🏀
-                                        </div>
-                                    )}
-
-                                    {/* Score animation */}
-                                    {isScorer && (
-                                        <div
-                                            className="absolute -top-8 left-0 right-0 text-center text-2xl text-yellow-400 font-bold animate-ping"
-                                            data-oid="fw9atyc"
-                                        >
-                                            +{scoreValue}
-                                        </div>
-                                    )}
-                                </div>
-                            );
-                        })}
-
-                        {/* Rockets Players */}
-                        {teams.Rockets.active.map((playerId, index) => {
-                            const player = getPlayerById(playerId);
-                            const isScorer = showScore && scoringPlayer === playerId;
-
-                            return (
-                                <div
-                                    key={playerId}
-                                    className={`relative flex flex-col items-center ${isScorer ? 'animate-bounce' : ''}`}
-                                    data-oid="87kxi::"
-                                >
-                                    <div
-                                        className={`w-16 h-16 border-4 ${teams.Rockets.borderColors} ${teams.Rockets.colors} flex items-center justify-center`}
-                                        data-oid="gw27sqz"
-                                    >
-                                        {player.position}
-                                    </div>
-                                    <div className="mt-2 text-white text-center" data-oid="bwfqxv2">
-                                        {player.name}
-                                    </div>
-
-                                    {/* Ball indicator */}
-                                    {ballHolder === playerId && (
-                                        <div
-                                            className="absolute -top-4 -right-2 text-2xl"
-                                            data-oid="06nuetf"
-                                        >
-                                            🏀
-                                        </div>
-                                    )}
-
-                                    {/* Score animation */}
-                                    {isScorer && (
-                                        <div
-                                            className="absolute -top-8 left-0 right-0 text-center text-2xl text-white font-bold animate-ping"
-                                            data-oid="bskwnbh"
-                                        >
-                                            +{scoreValue}
-                                        </div>
-                                    )}
-                                </div>
-                            );
-                        })}
-                    </div>
-
                     {/* Confetti effect for scoring team */}
                     {showScore && (
                         <div className="absolute inset-0 pointer-events-none" data-oid="rz.46rh">
