@@ -39,6 +39,8 @@ export default function Page() {
     const [scoreValue, setScoreValue] = useState<number>(0);
     const [scoringTeam, setScoringTeam] = useState<string>('');
     const [scoringPlayer, setScoringPlayer] = useState<string | null>(null);
+    const [isSimulating, setIsSimulating] = useState<boolean>(false);
+    const [simError, setSimError] = useState<string | null>(null);
 
     const teams: Teams = {
         GSW: {
@@ -249,25 +251,55 @@ export default function Page() {
         return -1;
     };
 
-    const handlePlay = () => {
-        if (!ballHolder) return;
+    const getLineupNames = (team: Team): string[] =>
+        team.active.map((pid) => {
+            const player = team.players.find((p) => p.id === pid);
+            return player ? player.name : '';
+        });
 
+    const handlePlay = async () => {
+        if (!ballHolder) return;
+        setIsSimulating(true);
+        setSimError(null);
         setGameState('simulation');
 
-        // Simulate play after a short delay
-        setTimeout(() => {
-            const isThreePointer = Math.random() > 0.7;
-            setScoreValue(isThreePointer ? 3 : 2);
-            setScoringTeam(possession);
-            setScoringPlayer(ballHolder);
-            setShowScore(true);
+        const offense =
+            possession === 'GSW' ? getLineupNames(teams.GSW) : getLineupNames(teams.Rockets);
+        const defense =
+            possession === 'GSW' ? getLineupNames(teams.Rockets) : getLineupNames(teams.GSW);
+        const question = `Simulate a possession with Offense: [${offense.join(', ')}] and Defense: [${defense.join(', ')}]. Ball handler: ${getPlayerById(ballHolder)?.name || ''}.`;
 
-            // Reset after animation
+        try {
+            const res = await fetch('/py/analyze', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question }),
+            });
+            if (!res.ok) throw new Error('Simulation failed');
+            const data = await res.json();
+            // The 'response' field is a JSON string; parse it:
+            const events = JSON.parse(data.response).events;
+            // Example: use first event to set scorer and score (customize as needed)
+            const scoring = events.find(
+                (e: any) => e.type === 'SHOT_ATTEMPT' && e.details?.outcome === 'MAKE',
+            );
+            setScoreValue(scoring && scoring.details && scoring.details.distance >= 22 ? 3 : 2);
+            setScoringTeam(possession);
+            setScoringPlayer(
+                scoring ? offense.find((n) => n === scoring.player) || '' : ballHolder,
+            );
+            setShowScore(true);
+            // Optionally: animate through the events array for richer UI
             setTimeout(() => {
                 setShowScore(false);
                 setGameState('selection');
+                setIsSimulating(false);
             }, 3000);
-        }, 1500);
+        } catch (err: any) {
+            setSimError(err.message || 'Simulation failed');
+            setIsSimulating(false);
+            setGameState('selection');
+        }
     };
 
     const handleBallAssignment = (playerId: string) => {
@@ -287,17 +319,13 @@ export default function Page() {
     };
 
     return (
-        <div
-            className="min-h-screen w-full relative overflow-hidden font-['Press_Start_2P',monospace] text-xs"
-            data-oid="iorpyk:"
-        >
+        <div className="min-h-screen w-full relative overflow-hidden font-['Press_Start_2P',monospace] text-xs">
             {/* NBA court background image */}
-            <div className="absolute inset-0 z-0" data-oid="e9-xv00">
+            <div className="absolute inset-0 z-0">
                 <img
                     src="/images/bg.png"
                     alt="NBA Court"
                     className="absolute inset-0 w-full h-full object-cover"
-                    data-oid="79v.4vz"
                 />
             </div>
 
@@ -321,30 +349,22 @@ export default function Page() {
                             transform: isScorer ? 'scale(1.5)' : 'scale(1)',
                         }}
                         className={`flex flex-col items-center ${isScorer ? 'shadow-2xl' : ''} ${isHolder ? 'ring-4 ring-yellow-400' : ''}`}
-                        data-oid="nm4.ed4"
                     >
                         {playerAvatars[player.name] && (
                             <img
                                 src={playerAvatars[player.name]}
                                 alt={player.name + ' avatar'}
                                 className="w-14 h-14 rounded-full border-4 border-blue-600 bg-white"
-                                data-oid="ujlq:.z"
                             />
                         )}
-                        <div
-                            className="bg-blue-600 text-yellow-400 px-2 py-1 mt-1 rounded text-xs font-bold shadow"
-                            data-oid="u0b-yzm"
-                        >
+                        <div className="bg-blue-600 text-yellow-400 px-2 py-1 mt-1 rounded text-xs font-bold shadow">
                             {player.position}
-                            <br data-oid="l7apzsa" />
+                            <br />
                             {player.name}
                         </div>
                         {/* Point indicator */}
                         {isScorer && (
-                            <div
-                                className="absolute -top-6 left-0 right-0 text-center text-2xl text-yellow-400 font-bold animate-bounce"
-                                data-oid="06ulo3v"
-                            >
+                            <div className="absolute -top-6 left-0 right-0 text-center text-2xl text-yellow-400 font-bold animate-bounce">
                                 +{scoreValue}
                             </div>
                         )}
@@ -356,12 +376,8 @@ export default function Page() {
             <div
                 className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white border-4 border-black z-20"
                 style={{ opacity: isAnimating ? 1 : 0 }}
-                data-oid="0r7vc1g"
             >
-                <div
-                    className="w-full h-full flex items-center justify-center text-black font-bold"
-                    data-oid="yhxd_hb"
-                >
+                <div className="w-full h-full flex items-center justify-center text-black font-bold">
                     C
                 </div>
             </div>
@@ -386,30 +402,22 @@ export default function Page() {
                             transform: isScorer ? 'scale(1.5)' : 'scale(1)',
                         }}
                         className={`flex flex-col items-center ${isScorer ? 'shadow-2xl' : ''} ${isHolder ? 'ring-4 ring-yellow-400' : ''}`}
-                        data-oid="cbwy-si"
                     >
                         {rocketsPlayerAvatars[player.name] && (
                             <img
                                 src={rocketsPlayerAvatars[player.name]}
                                 alt={player.name + ' avatar'}
                                 className="w-14 h-14 rounded-full border-4 border-red-600 bg-white"
-                                data-oid="lbfexe3"
                             />
                         )}
-                        <div
-                            className="bg-red-600 text-white px-2 py-1 mt-1 rounded text-xs font-bold shadow"
-                            data-oid="de6cx3n"
-                        >
+                        <div className="bg-red-600 text-white px-2 py-1 mt-1 rounded text-xs font-bold shadow">
                             {player.position}
-                            <br data-oid="m9:sqzn" />
+                            <br />
                             {player.name}
                         </div>
                         {/* Point indicator */}
                         {isScorer && (
-                            <div
-                                className="absolute -top-6 left-0 right-0 text-center text-2xl text-white font-bold animate-bounce"
-                                data-oid="xmd5rz6"
-                            >
+                            <div className="absolute -top-6 left-0 right-0 text-center text-2xl text-white font-bold animate-bounce">
                                 +{scoreValue}
                             </div>
                         )}
@@ -418,44 +426,34 @@ export default function Page() {
             })}
 
             {gameState === 'selection' && (
-                <div className="relative z-10 p-4" data-oid="86w35-e">
+                <div className="relative z-10 p-4">
                     {/* Team & Roster Overlay */}
-                    <div
-                        className="mx-auto max-w-4xl bg-gray-900 bg-opacity-80 border-4 border-white p-4 mt-8"
-                        data-oid="qi1zslv"
-                    >
-                        <div className="grid grid-cols-2 gap-4" data-oid="5selc.8">
+                    <div className="mx-auto max-w-4xl bg-gray-900 bg-opacity-80 border-4 border-white p-4 mt-8">
+                        <div className="grid grid-cols-2 gap-4">
                             {/* GSW Team */}
                             <div
                                 className={`${teams.GSW.colors} p-2 border-4 ${teams.GSW.borderColors}`}
-                                data-oid="4hs0blf"
                             >
-                                <h2 className="text-center mb-4 text-lg" data-oid="hf7xg00">
-                                    GSW
-                                </h2>
-                                <div className="space-y-2" data-oid="r6nld7-">
+                                <h2 className="text-center mb-4 text-lg">GSW</h2>
+                                <div className="space-y-2">
                                     {teams.GSW.players.map((player) => (
                                         <div
                                             key={player.id}
                                             onClick={() => handleBallAssignment(player.id)}
                                             className={`flex justify-between items-center p-2 border-2 ${teams.GSW.borderColors} cursor-pointer ${ballHolder === player.id ? 'bg-yellow-400 text-blue-600' : ''}`}
-                                            data-oid="g75uxsf"
                                         >
-                                            <span data-oid="l5dy0me">{player.position}</span>
-                                            <span data-oid="5q:kpsp">{player.name}</span>
+                                            <span>{player.position}</span>
+                                            <span>{player.name}</span>
                                             {/* Avatar image for this player */}
                                             {playerAvatars[player.name] && (
                                                 <img
                                                     src={playerAvatars[player.name]}
                                                     alt={player.name + ' avatar'}
                                                     className="w-8 h-8 rounded-full border-2 border-blue-600 bg-white"
-                                                    data-oid="6uj90-m"
                                                 />
                                             )}
                                             {ballHolder === player.id && (
-                                                <span className="ml-2 text-lg" data-oid="5v9mnyq">
-                                                    🏀
-                                                </span>
+                                                <span className="ml-2 text-lg">🏀</span>
                                             )}
                                         </div>
                                     ))}
@@ -465,34 +463,27 @@ export default function Page() {
                             {/* Rockets Team */}
                             <div
                                 className={`${teams.Rockets.colors} p-2 border-4 ${teams.Rockets.borderColors}`}
-                                data-oid="18j89c6"
                             >
-                                <h2 className="text-center mb-4 text-lg" data-oid="kltdkrf">
-                                    ROCKETS
-                                </h2>
-                                <div className="space-y-2" data-oid="p4_dg63">
+                                <h2 className="text-center mb-4 text-lg">ROCKETS</h2>
+                                <div className="space-y-2">
                                     {teams.Rockets.players.map((player) => (
                                         <div
                                             key={player.id}
                                             onClick={() => handleBallAssignment(player.id)}
                                             className={`flex justify-between items-center p-2 border-2 ${teams.Rockets.borderColors} cursor-pointer ${ballHolder === player.id ? 'bg-white text-red-600' : ''}`}
-                                            data-oid="9.5kem7"
                                         >
-                                            <span data-oid="y0b1pl0">{player.position}</span>
-                                            <span data-oid="t:v:-6n">{player.name}</span>
+                                            <span>{player.position}</span>
+                                            <span>{player.name}</span>
                                             {/* Avatar image for this player */}
                                             {rocketsPlayerAvatars[player.name] && (
                                                 <img
                                                     src={rocketsPlayerAvatars[player.name]}
                                                     alt={player.name + ' avatar'}
                                                     className="w-8 h-8 rounded-full border-2 border-red-600 bg-white"
-                                                    data-oid="89x0f1h"
                                                 />
                                             )}
                                             {ballHolder === player.id && (
-                                                <span className="ml-2 text-lg" data-oid="r8w0od_">
-                                                    🏀
-                                                </span>
+                                                <span className="ml-2 text-lg">🏀</span>
                                             )}
                                         </div>
                                     ))}
@@ -501,25 +492,18 @@ export default function Page() {
                         </div>
 
                         {/* Possession Selection */}
-                        <div
-                            className="mt-6 p-4 border-4 border-white bg-gray-800"
-                            data-oid="t-3kv_a"
-                        >
-                            <h3 className="text-white mb-4 text-center" data-oid="d-g1pm9">
-                                POSSESSION
-                            </h3>
-                            <div className="flex justify-center space-x-8" data-oid="tigzh.d">
+                        <div className="mt-6 p-4 border-4 border-white bg-gray-800">
+                            <h3 className="text-white mb-4 text-center">POSSESSION</h3>
+                            <div className="flex justify-center space-x-8">
                                 <button
                                     onClick={() => setPossession('GSW')}
                                     className={`px-4 py-2 border-4 ${possession === 'GSW' ? 'bg-blue-600 text-yellow-400 border-yellow-400' : 'bg-gray-700 text-gray-300 border-gray-500'}`}
-                                    data-oid="e00phhu"
                                 >
                                     GSW
                                 </button>
                                 <button
                                     onClick={() => setPossession('Rockets')}
                                     className={`px-4 py-2 border-4 ${possession === 'Rockets' ? 'bg-red-600 text-white border-white' : 'bg-gray-700 text-gray-300 border-gray-500'}`}
-                                    data-oid="n5j5lmt"
                                 >
                                     ROCKETS
                                 </button>
@@ -527,28 +511,25 @@ export default function Page() {
                         </div>
 
                         {/* Play Button */}
-                        <div className="mt-8 flex justify-center" data-oid="8pevik3">
+                        <div className="mt-8 flex justify-center">
                             <button
                                 onClick={handlePlay}
-                                disabled={!ballHolder}
-                                className={`px-12 py-4 text-2xl border-4 border-white bg-green-600 text-white hover:bg-green-500 transition-colors ${!ballHolder ? 'opacity-50 cursor-not-allowed' : 'animate-pulse'}`}
-                                data-oid="pas-ad:"
+                                disabled={!ballHolder || isSimulating}
+                                className={`px-12 py-4 text-2xl border-4 border-white bg-green-600 text-white hover:bg-green-500 transition-colors ${!ballHolder || isSimulating ? 'opacity-50 cursor-not-allowed' : 'animate-pulse'}`}
                             >
-                                PLAY
+                                {isSimulating ? 'Simulating...' : 'PLAY'}
                             </button>
+                            {simError && <div className="text-red-600 mt-2">{simError}</div>}
                         </div>
                     </div>
                 </div>
             )}
 
             {gameState === 'simulation' && (
-                <div
-                    className="relative z-10 h-screen flex items-center justify-center"
-                    data-oid="8kkg:wb"
-                >
+                <div className="relative z-10 h-screen flex items-center justify-center">
                     {/* Confetti effect for scoring team */}
                     {showScore && (
-                        <div className="absolute inset-0 pointer-events-none" data-oid="rz.46rh">
+                        <div className="absolute inset-0 pointer-events-none">
                             {[...Array(50)].map((_, i) => {
                                 const size = Math.floor(Math.random() * 8) + 4;
                                 const left = Math.floor(Math.random() * 100);
@@ -573,7 +554,6 @@ export default function Page() {
                                             top: '-20px',
                                             animation: `fall ${animationDuration}s linear ${delay}s`,
                                         }}
-                                        data-oid="x65:t6f"
                                     ></div>
                                 );
                             })}
@@ -583,7 +563,7 @@ export default function Page() {
             )}
 
             {/* Global styles for animations */}
-            <style jsx global data-oid="e0utp60">{`
+            <style jsx global>{`
                 @keyframes fall {
                     0% {
                         transform: translateY(-20px);
